@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Work_Sans } from "next/font/google";
+import { ThemeProvider } from "@components/theme-provider";
+import { ModeToggle } from "@components/mode-toggle";
+import { Origami } from "lucide-react";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const workSans = Work_Sans({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Zwizzer",
@@ -15,8 +18,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      <body className={`${workSans.className} flex h-screen flex-col`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <header className="flex-between px-2 py-4">
+            <div className="flex-center flex-1">
+              <div className="flex items-center justify-center gap-4 rounded-full bg-primary px-3 py-2">
+                <Origami
+                  size={32}
+                  className="rounded-full bg-primary-foreground p-1 text-primary"
+                />
+                <h3 className="text-xl font-bold text-primary-foreground">
+                  Zwizzer
+                </h3>
+              </div>
+            </div>
+            <ModeToggle />
+          </header>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
