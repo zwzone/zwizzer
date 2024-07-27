@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Work_Sans } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { ThemeProvider } from "@components/theme-provider";
 import { ModeToggle } from "@components/mode-toggle";
 import { Origami } from "lucide-react";
 import "./globals.css";
 
-const workSans = Work_Sans({ weight: "400", subsets: ["latin"] });
+const primaryFont = Poppins({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Zwizzer",
@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body className={`${workSans.className} flex h-screen flex-col`}>
+      <body className={`${primaryFont.className} flex h-screen flex-col`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
