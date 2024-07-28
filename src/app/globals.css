@@ -75,4 +75,9 @@
   .flex-around {
     @apply flex items-center justify-around;
   }
+  div[contentEditable=true]:empty:before {
+    cursor: text;
+    content: attr(data-placeholder);
+    opacity: .5;
+  }
 }
