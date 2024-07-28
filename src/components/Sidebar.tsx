@@ -1,12 +1,16 @@
 import { Button } from "@components/ui/button";
 import { AvatarFallback } from "@radix-ui/react-avatar";
 import { Avatar, AvatarImage } from "@src/components/ui/avatar";
-import { Bookmark, Ellipsis, House, Settings } from "lucide-react";
+import { Bookmark, Ellipsis, House, Origami, Settings } from "lucide-react";
 import { UserRound } from "lucide-react";
 import { PenTool } from "lucide-react";
 import Link from "next/link";
 
 const NAVIGATION_BAR = [
+  {
+    title: "",
+    icon: <Origami />,
+  },
   {
     title: "Home",
     icon: <House />,
@@ -25,22 +29,32 @@ const NAVIGATION_BAR = [
   },
   {
     title: "Post",
-    icon: <PenTool className="lg:hidden"/>,
-  }
+    icon: <PenTool className="lg:hidden" />,
+  },
 ];
 
 export default function Sidebar() {
   return (
-    <section className="flex justify-between h-full flex-col px-2 py-4">
-      <div className="flex items-center lg:items-start flex-col gap-2">
+    <section className="flex h-full flex-col justify-between gap-4 px-2 py-4">
+      <div className="flex flex-col items-center gap-2 lg:items-start">
         {NAVIGATION_BAR.map((item) => (
-          <Link className={`${item.title === "Post" && "lg:self-stretch"}`} key={item.title} href={"/" + item.title.toLowerCase()}>
+          <Link
+            className={`${item.title === "Post" && "lg:self-stretch"}`}
+            key={item.title}
+            href={"/" + item.title.toLowerCase()}
+          >
             <Button
               variant={item.title !== "Post" ? "ghost" : "default"}
-              className="flex-center gap-4 rounded-full px-2 lg:pr-6 w-full"
+              className="flex-center w-full gap-4 rounded-full px-2"
             >
               {item.icon}
-              <span className="hidden font-bold lg:inline">{item.title}</span>
+              {item.title && (
+                <span
+                  className={`hidden lg:inline ${item.title !== "Post" && "lg:pr-4"}`}
+                >
+                  {item.title}
+                </span>
+              )}
             </Button>
           </Link>
         ))}
