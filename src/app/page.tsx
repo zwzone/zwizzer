@@ -12,7 +12,7 @@ export default function Home() {
       <main className="h-full max-w-[768px] flex-grow xl:max-w-[1024px]">
         <section className="min-h-full border-x">
           {/* Post Form */}
-          <div className="flex flex-col gap-4 border-b px-2 py-4 sm:flex-row sm:items-start">
+          <div className="flex flex-col gap-4 border-b p-4 sm:flex-row sm:items-start sm:px-8">
             <div>
               <Avatar className="size-10 justify-self-end">
                 <AvatarImage src="https://github.com/shadcn.png" alt="avatar" />
@@ -28,6 +28,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+        {/* TODO: Add Zweez components here */}
       </main>
     </div>
   );
