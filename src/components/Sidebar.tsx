@@ -64,10 +64,7 @@ export default function Sidebar() {
         className="flex h-14 items-center gap-2 rounded-full p-2"
       >
         <Avatar className="size-10 justify-self-end">
-          <AvatarImage
-            src="https://lh3.googleusercontent.com/a/ACg8ocJ4mQsNMUQB2TmYtvYC0Qla9a4P_DT9h921z6Me-v1mjxbQzOZx=s96-c"
-            alt="avatar"
-          />
+          <AvatarImage src="https://github.com/shadcn.png" alt="avatar" />
           <AvatarFallback>ZW</AvatarFallback>
         </Avatar>
         <div className="flex-center hidden gap-8 lg:flex">
