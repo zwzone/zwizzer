@@ -35,7 +35,7 @@ const NAVIGATION_BAR = [
 
 export default function Sidebar() {
   return (
-    <section className="flex h-full flex-col justify-between gap-4 px-2 py-4">
+    <section className="flex-between sticky top-0 h-screen flex-col gap-4 self-stretch px-2 py-4">
       <div className="flex flex-col items-center gap-2 lg:items-start">
         {NAVIGATION_BAR.map((item) => (
           <Link
