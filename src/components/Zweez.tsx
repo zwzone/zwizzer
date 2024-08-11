@@ -30,7 +30,8 @@ export default function Zweez({
     <div className="relative flex flex-col gap-4 border-b p-4 sm:flex-row sm:items-start sm:px-8">
       <Button
         variant="ghost"
-        className="absolute right-2 top-4 rounded-full px-2"
+        size="icon"
+        className="absolute right-2 top-4 rounded-full"
       >
         <Ellipsis className="size-6" />
       </Button>
@@ -45,30 +46,50 @@ export default function Zweez({
         </div>
         <div>{content}</div>
         <div className="flex-between">
-          <div className="flex-center gap-1">
-            <Button variant="ghost" className="rounded-full px-2">
-              <MessageCircle />
+          <div className="flex-center text-sm sm:text-base">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="size-6 rounded-full sm:size-10"
+            >
+              <MessageCircle className="size-4 sm:size-6" />
             </Button>
             {replies}
           </div>
-          <div className="flex-center gap-1">
-            <Button variant="ghost" className="rounded-full px-2">
-              <Repeat2 />
+          <div className="flex-center text-sm sm:text-base">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="size-6 rounded-full sm:size-10"
+            >
+              <Repeat2 className="size-4 sm:size-6" />
             </Button>
             {reposts}
           </div>
-          <div className="flex-center gap-1">
-            <Button variant="ghost" className="rounded-full px-2">
-              <Heart />
+          <div className="flex-center text-sm sm:text-base">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="size-6 rounded-full sm:size-10"
+            >
+              <Heart className="size-4 sm:size-6" />
             </Button>
             {likes}
           </div>
-          <div className="flex gap-3">
-            <Button variant="ghost" className="rounded-full px-2">
-              <Bookmark />
+          <div className="flex-center">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="size-6 rounded-full sm:size-10"
+            >
+              <Bookmark className="size-4 sm:size-6" />
             </Button>
-            <Button variant="ghost" className="rounded-full px-2">
-              <Share />
+            <Button
+              variant="ghost"
+              size="icon"
+              className="size-6 rounded-full sm:size-10"
+            >
+              <Share className="size-4 sm:size-6" />
             </Button>
           </div>
         </div>
