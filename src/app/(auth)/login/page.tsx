@@ -9,7 +9,7 @@ export default function LoginPage() {
   return (
     <>
       <div className="p-4">
-        <Image className="size-8 lg:size-96" src={Logo} alt="Logo" />
+        <Image className="size-8 sm:size-96" src={Logo} alt="Logo" />
       </div>
       <div className="flex max-w-xs grow flex-col items-stretch justify-center gap-16 px-4">
         <h1 className="text-2xl font-bold">Sign in to Zwizzer</h1>
