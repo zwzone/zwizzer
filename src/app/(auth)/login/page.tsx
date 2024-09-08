@@ -1,11 +1,32 @@
-import Image from "next/image";
-import Logo from "@public/logo.svg";
+"use client";
+
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema } from "@/schemas";
+import { Form, FormControl, FormField } from "@components/ui/form";
+import { FormError } from "@/src/components/form-error";
+import { Input } from "@components/ui/input";
 import { Button } from "@components/ui/button";
 import { FcGoogle } from "react-icons/fc";
 import { FaSquareXTwitter } from "react-icons/fa6";
+import Logo from "@public/logo.svg";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function LoginPage() {
+  const form = useForm<z.infer<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = (values: z.infer<typeof loginSchema>) => {
+    console.log(values);
+  };
+
   return (
     <>
       <div className="p-4">
@@ -24,21 +45,38 @@ export default function LoginPage() {
             <p className="self-center bg-background px-2">or</p>
             <div className="absolute left-0 top-1/2 -z-10 w-full border border-muted"></div>
           </div>
-          <form className="flex flex-col gap-4">
-            <input
-              className="rounded-sm border border-muted bg-transparent px-4 py-2"
-              type="text"
-              placeholder="Email"
-            />
-            <input
-              className="rounded-sm border border-muted bg-transparent px-4 py-2"
-              type="password"
-              placeholder="Password"
-            />
-            <Button className="rounded-full bg-primary text-foreground">
-              Sign in
-            </Button>
-          </form>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="flex flex-col gap-4"
+            >
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormControl>
+                    <Input {...field} type="email" placeholder="Email" />
+                  </FormControl>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormControl>
+                    <Input {...field} type="password" placeholder="Password" />
+                  </FormControl>
+                )}
+              />
+              <FormError message="Invalid email or password" />
+              <Button
+                type="submit"
+                className="rounded-full bg-primary text-foreground"
+              >
+                Sign in
+              </Button>
+            </form>
+          </Form>
         </div>
         <p className="text-muted-foreground">
           Don&apos;t have an account?{" "}
