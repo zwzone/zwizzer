@@ -5,7 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { Button } from "@components/ui/button";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   return (
     <>
       <div className="self-start p-4 lg:self-center lg:px-40">
