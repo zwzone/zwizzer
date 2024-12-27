@@ -1,52 +1,134 @@
-import React from "react";
-import logo from "@public/logo.svg";
-import Image from "next/image";
+"use client";
+
+import { useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { registerSchema } from "@/src/schemas";
+import { Form, FormControl, FormField } from "@components/ui/form";
+import { FormSuccess } from "@components/form-success";
+import { FormError } from "@components/form-error";
+import { Input } from "@components/ui/input";
+import { Button } from "@components/ui/button";
 import { FcGoogle } from "react-icons/fc";
 import { FaSquareXTwitter } from "react-icons/fa6";
-import { Button } from "@components/ui/button";
+import Logo from "@public/logo.svg";
+import Image from "next/image";
+import Link from "next/link";
+import { register } from "@/src/actions/register";
 
 export default function RegisterPage() {
+  const [success, setSuccess] = useState<string | undefined>();
+  const [error, setError] = useState<string | undefined>();
+  const [isPending, startTransition] = useTransition();
+  const form = useForm<z.infer<typeof registerSchema>>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = (values: z.infer<typeof registerSchema>) => {
+    setSuccess("");
+    setError("");
+    startTransition(() => {
+      register(values).then((response) => {
+        setSuccess(response.success);
+        setError(response.error);
+      });
+    });
+  };
+
   return (
     <>
-      <div className="self-start p-4 lg:self-center lg:px-40">
-        <Image alt="logo" src={logo} className="size-10 lg:size-96" />
+      <div className="p-4">
+        <Image className="size-8 sm:size-96" src={Logo} alt="Logo" />
       </div>
-      <div className="grow p-4 lg:max-w-lg">
-        <h1 className="my-7 w-min text-4xl font-bold leading-[3.5rem] lg:w-fit lg:text-6xl">
-          Happening now
-        </h1>
-        <div className="">
-          <h3 className="py-4 text-2xl">Join today.</h3>
-          <div className="flex flex-col items-stretch gap-2">
-            <Button className="rounded-full bg-foreground text-background hover:bg-foreground/90">
-              <FcGoogle className="mr-2 size-6" />
-              Sign up with Google
-            </Button>
-            <Button className="rounded-full bg-foreground text-center text-background hover:bg-foreground/90">
-              <FaSquareXTwitter className="mr-2 size-6" />
-              Sign up with X
-            </Button>
-          </div>
-          <div className="relative m-1 flex flex-col items-stretch justify-center">
+      <div className="flex max-w-xs grow flex-col items-stretch justify-center gap-16 px-4">
+        <h1 className="text-2xl font-bold">Sign up to Zwizzer</h1>
+        <div className="flex flex-col gap-4">
+          <Button
+            className="rounded-full bg-foreground text-background hover:bg-foreground/90"
+            disabled={isPending}
+          >
+            <FcGoogle className="mr-2" /> Sign in with Google
+          </Button>
+          <Button
+            className="rounded-full bg-foreground text-background hover:bg-foreground/90"
+            disabled={isPending}
+          >
+            <FaSquareXTwitter className="mr-2" /> Sign in with X
+          </Button>
+          <div className="relative flex flex-col items-stretch justify-center">
             <p className="self-center bg-background px-2">or</p>
             <div className="absolute left-0 top-1/2 -z-10 w-full border border-muted"></div>
           </div>
-          <div className="flex flex-col items-stretch pb-2">
-            <Button className="rounded-full font-bold">Create account</Button>
-          </div>
-          <div className="pb-7 text-xs">
-            By signing up, you agree to the Terms of Service and Privacy Policy,
-            including Cookie Use.
-          </div>
-          <div className="decoration-slice py-3 text-lg">
-            Already have an account?
-          </div>
-          <div className="flex flex-col items-stretch justify-center">
-            <Button className="rounded-full border border-input bg-background hover:bg-accent hover:text-accent-foreground">
-              Sign in
-            </Button>
-          </div>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="flex flex-col gap-4"
+            >
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormControl>
+                    <Input
+                      {...field}
+                      disabled={isPending}
+                      type="text"
+                      placeholder="Username"
+                    />
+                  </FormControl>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormControl>
+                    <Input
+                      {...field}
+                      disabled={isPending}
+                      type="email"
+                      placeholder="Email"
+                    />
+                  </FormControl>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormControl>
+                    <Input
+                      {...field}
+                      disabled={isPending}
+                      type="password"
+                      placeholder="Password"
+                    />
+                  </FormControl>
+                )}
+              />
+              <FormSuccess message={success} />
+              <FormError message={error} />
+              <Button
+                disabled={isPending}
+                type="submit"
+                className="rounded-full bg-primary text-foreground"
+              >
+                Sign up
+              </Button>
+            </form>
+          </Form>
         </div>
+        <p className="text-muted-foreground">
+          Already have an account?{" "}
+          <Link className="text-primary hover:underline" href="/login">
+            Sign in
+          </Link>
+        </p>
       </div>
     </>
   );
